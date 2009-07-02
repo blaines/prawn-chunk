@@ -1,5 +1,4 @@
 
-
 module Prawn
   class Document
     #module Chunk
@@ -60,12 +59,12 @@ module Prawn
 
       f = @chunk_line_queue.current_font
       size = @chunk_line_queue.current_options[:size]
-      word_space = f.width_of(' ', :size => size, :kerning => f.has_kerning_data?)
+      word_space = f.compute_width_of(' ', :size => size, :kerning => f.has_kerning_data?)
       lines = text.split(/\n/)
       first_word = true
       lines.each_with_index do |line, i|
         line.split(/\s/).each do |word|
-          width = f.width_of(word, :size => size, :kerning => f.has_kerning_data?)
+          width = f.compute_width_of(word, :size => size, :kerning => f.has_kerning_data?)
           if ((@chunk_data[:x] + width > @chunk_data[:right_margin]) && (@chunk_data[:x] > @chunk_data[:left_margin]))
             chunk_new_line
           else
